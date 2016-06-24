@@ -26,7 +26,7 @@ CreepSoldier.prototype.act = function() {
     if(this.attackHostiles()) { return; }
     if(this.attackSpawns()) { return; }
 
-    this.creep.moveTo(25,33, {avoid: avoidArea});
+    this.creep.moveTo(25,33);
 }
 CreepSoldier.prototype.attackHostiles = function() {
     var avoidArea = this.getAvoidedArea();
@@ -39,8 +39,8 @@ CreepSoldier.prototype.attackHostiles = function() {
         }
     });
     if(targets.length) {
-        var closest = this.creep.pos.findClosest(targets);
-        this.creep.moveTo(closest, {avoid: avoidArea});
+        var closest = this.creep.pos.findClosestByPath(targets);
+        this.creep.moveTo(closest);
         this.creep.attack(closest);
         return true;
     }
@@ -49,7 +49,7 @@ CreepSoldier.prototype.attackSpawns = function() {
     var avoidArea = this.getAvoidedArea();
     var targets = this.creep.room.find(FIND_HOSTILE_SPAWNS);
     if(targets.length) {
-        this.creep.moveTo(targets[0], {avoid: avoidArea});
+        this.creep.moveTo(targets[0]);
         this.creep.attack(targets[0]);
         return true;
     };

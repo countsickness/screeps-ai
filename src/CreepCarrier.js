@@ -93,8 +93,8 @@ CreepCarrier.prototype.depositEnergy = function() {
 
 	if(this.depositFor == DEPOSIT_FOR.POPULATION) {
 		var deposit = this.getDeposit();
-		this.creep.moveTo(deposit, {avoid: avoidArea});
-		this.creep.transferEnergy(deposit);
+		this.creep.moveTo(deposit);
+		this.creep.transfer(deposit, RESOURCE_ENERGY);
 	}
 
 	if(this.depositFor == DEPOSIT_FOR.CONSTRUCTION) {
@@ -107,7 +107,7 @@ CreepCarrier.prototype.depositEnergy = function() {
 		}
 
 		if(!this.creep.pos.isNearTo(worker, range)) {
-			this.creep.moveTo(worker, {avoid: avoidArea});
+			this.creep.moveTo(worker);
 		} else {
 			this.remember('move-attempts', 0);
 		}
@@ -154,10 +154,10 @@ CreepCarrier.prototype.pickupEnergy = function() {
 		return false;
 	}
 
-	var targets = this.creep.pos.findInRange(FIND_DROPPED_ENERGY, 3, {avoid: avoidArea});
+	var targets = this.creep.pos.findInRange(FIND_DROPPED_ENERGY, 3);
 	if(targets.length) {
-		var target = this.creep.pos.findClosest(targets);
-		this.creep.moveTo(target, {avoid: avoidArea});
+		var target = this.creep.pos.findClosestByPath(targets);
+		this.creep.moveTo(target);
 	    this.creep.pickup(target);
 		return true;
 	}
@@ -166,7 +166,7 @@ CreepCarrier.prototype.harvestEnergy = function() {
 	//this.creep.moveTo(0,0);
 	var avoidArea = this.getAvoidedArea();
 
-	this.creep.moveTo(this.resource, {avoid: avoidArea});
+	this.creep.moveTo(this.resource);
 	if(this.creep.pos.inRangeTo(this.resource, 3)) {
 		this.harvest();
 	}
@@ -179,10 +179,10 @@ CreepCarrier.prototype.harvest = function() {
 	if(creepsNear.length){
 		for(var n in creepsNear){
 			if(creepsNear[n].memory.role === 'CreepMiner' && creepsNear[n].energy != 0){
-				creepsNear[n].transferEnergy(this.creep);
+				creepsNear[n].transfer(this.creep, RESOURCE_ENERGY);
 			}
             if(creepsNear[n].memory.role === 'CreepBuilder'){
-                this.creep.transferEnergy(creepsNear[n]);
+                this.creep.transfer(creepsNear[n], RESOURCE_ENERGY)
 			}
 		}
 	}

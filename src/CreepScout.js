@@ -47,7 +47,7 @@ CreepScout.prototype.conquer = function() {
         controller = controller[0];
     }
 
-    this.creep.moveTo(controller, {avoid: avoidArea});
+    this.creep.moveTo(controller);
     this.creep.claimController(controller);
 }
 

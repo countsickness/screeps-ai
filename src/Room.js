@@ -9,6 +9,7 @@ function Room(room, roomHandler) {
 	this.roomHandler = roomHandler;
 	this.creeps = [];
 	this.structures = [];
+    //PathFinder.use(false);
 
 	this.population = new Population(this.room);
 	this.depositManager = new Deposits(this.room);

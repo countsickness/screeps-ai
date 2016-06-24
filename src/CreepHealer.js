@@ -25,16 +25,16 @@ CreepHealer.prototype.act = function() {
     var avoidArea = this.getAvoidedArea();
     var injured = this.getInjuredCreep();
     if(injured) {
-        this.creep.moveTo(injured, {avoid: avoidArea});
+        this.creep.moveTo(injured);
         this.creep.heal(injured);
         return;
     }
 
-    this.creep.moveTo(20,10, {avoid: avoidArea});
+    this.creep.moveTo(20,10);
 }
 
 CreepHealer.prototype.getInjuredCreep = function() {
-    return this.creep.pos.findClosest(FIND_MY_CREEPS, {
+    return this.creep.pos.findClosestByPath(FIND_MY_CREEPS, {
         filter: function(c) {
             if(c.hits < c.hitsMax) {
                 return true;
