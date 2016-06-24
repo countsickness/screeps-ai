@@ -47,6 +47,7 @@ CreepMiner.prototype.act = function() {
 	this.giveEnergy();
 	if(this.creep.energy == this.creep.energyCapacity) {
 		//return;
+        console.log(this.creep.name + ' says he is full')
 	}
 	this.creep.moveTo(this.resource);
 	this.creep.harvest(this.resource);

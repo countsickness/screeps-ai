@@ -9,7 +9,7 @@ var CreepBuilder = function(creep, depositManager, constructionManager) {
 	this.creep = creep;
 	this.depositManager = depositManager;
 	this.constructionManager = constructionManager;
-	this.forceControllerUpgrade = false;
+	this.forceControllerUpgrade = true;
 };
 
 CreepBuilder.prototype.init = function() {
@@ -34,16 +34,19 @@ CreepBuilder.prototype.init = function() {
 };
 
 CreepBuilder.prototype.act = function() {
+    console.log('builder acting funny!');
 	var site = false;
 	var avoidArea = this.getAvoidedArea();
 	if(!this.forceControllerUpgrade) {
 		site = this.constructionManager.constructStructure(this);
-	}
+	    console.log(site);
+    }
 
 	if(!site) {
 		var site = this.constructionManager.getController();
 		this.creep.moveTo(site);
 		this.creep.upgradeController(site);
+        console.log(site);
 	}
 
 	if(this.creep.pos.inRangeTo(site, 3)) {

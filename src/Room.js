@@ -138,6 +138,7 @@ Room.prototype.distributeBuilders = function() {
 	}
 }
 Room.prototype.distributeCarriers = function() {
+    console.log('distribute');
 	var counter = 0;
 	var builders = [];
 	var carriers = [];
